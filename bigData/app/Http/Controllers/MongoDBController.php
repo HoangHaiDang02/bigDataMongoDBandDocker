@@ -130,9 +130,7 @@ class MongoDBController extends Controller
         ];
     }
 
-    /**
-     * @return void
-     */
+
     public function syncDataInToDataTrain()
     {
         $allData = $this->connectCollection->getAllValue();
@@ -152,7 +150,10 @@ class MongoDBController extends Controller
             fclose($file);
         }
         shell_exec("/bin/python3 /home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/mlp.py");
-        dd('done');
+        return response()->json([
+            'success' => true,
+            'message' => 'Trained new modal with new Data'
+        ]);
     }
 }
 
