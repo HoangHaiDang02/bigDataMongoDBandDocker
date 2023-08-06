@@ -36,4 +36,9 @@ class InfrastructureService
     {
         DB::table($this->table)->insert($values);
     }
+
+    public function deleteData($values): void
+    {
+        DB::table($this->table)->delete($values);
+    }
 }

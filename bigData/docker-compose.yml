@@ -1,0 +1,18 @@
+version: "3.4"
+services:
+    mongo:
+        container_name: mongodb-test
+        image: mongo:6.0
+        volumes:
+            - mongodb-test:/data/db
+        ports:
+            - '27018:27017'
+        networks:
+            - mongodb-test
+volumes:
+    mongodb-test:
+        driver: local
+
+networks:
+    mongodb-test:
+        driver: bridge

@@ -45,12 +45,12 @@ class MongoDBController extends Controller
                 $values = array_values($data);
                 $commaSeparatedValues = implode(",", $values);
                 $dataInsertToFile = $commaSeparatedValues . "\n";
-                $test = "/home/danghh/demo/bigData/datainrequest.txt";
+                $test = "/home/danghh/demo/bigDataMongoDBandDocker/bigData/datainrequest.txt";
 
                 $file = fopen($test,'w');
                 fwrite($file, $dataInsertToFile);
                 fclose($file);
-                shell_exec("/bin/python3 /home/danghh/demo/bigData/pythonMLP/handleModel.py");
+                shell_exec("/bin/python3 /home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/handleModel.py");
 
                 $dataAfterPredictContent = file_get_contents("/home/danghh/demo/bigData/outputdata.txt","r");
                 $dataAfterPredict = str_replace("\n", "",$dataAfterPredictContent);
@@ -128,6 +128,31 @@ class MongoDBController extends Controller
             'label' => $data[16],
             "time_upload" => new \MongoDB\BSON\UTCDateTime()
         ];
+    }
+
+    /**
+     * @return void
+     */
+    public function syncDataInToDataTrain()
+    {
+        $allData = $this->connectCollection->getAllValue();
+        foreach ($allData as $value) {
+            $this->connectCollection->deleteData($value['_id']);
+            unset($value['_id'], $value['time_upload']);
+            $insertInToDataSave = new InfrastructureService('collectDataSaveModal');
+            $insertInToDataSave->insertValuesToCollection($value);
+
+            $values = array_values($value);
+            $commaSeparatedValues = implode(",", $values);
+            $dataInsertToFile = $commaSeparatedValues . "\n";
+            $test = "/home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/test_2.csv";
+
+            $file = fopen($test,'a');
+            fwrite($file, $dataInsertToFile);
+            fclose($file);
+        }
+        shell_exec("/bin/python3 /home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/mlp.py");
+        dd('done');
     }
 }
 

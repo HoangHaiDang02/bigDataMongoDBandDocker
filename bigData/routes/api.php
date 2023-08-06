@@ -17,4 +17,5 @@ use App\Http\Controllers\MongoDBController;
 Route::prefix('bigData')->group(function () {
     Route::get("/testConnectMongodb", [MongoDBController::class, 'getValues']);
     Route::post("/testInsertToMongodb", [MongoDBController::class, 'insertValue']);
+    Route::post("/syncDataInToDataTrain", [MongoDBController::class, 'syncDataInToDataTrain']);
 });
