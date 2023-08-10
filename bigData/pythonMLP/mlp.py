@@ -35,7 +35,21 @@ for train_index, test_index in kfold.split(X,y):
     # Tính toán độ chính xác và lưu vào danh sách độ chính xác
     accuracy = accuracy_score(y_test, y_pred)
     accuracies.append(accuracy)
-dump(mlp, 'trainModel.joblib')
+
+# In ra độ chính xác cao nhất từ các fold
+max_accuracy = max(accuracies)
+print("Độ chính xác cao nhất:", max_accuracy*100, "%")
+
+# Tạo mô hình với độ chính xác cao nhất
+best_model_index = accuracies.index(max_accuracy)
+best_train_indices, best_test_indices = list(kfold.split(X,y))[best_model_index]
+X_train_best, X_test_best = X.iloc[best_train_indices], X.iloc[best_test_indices]
+y_train_best, y_test_best = y[best_train_indices], y[best_test_indices]
+
+best_mlp = MLPClassifier(hidden_layer_sizes=500)
+best_mlp.fit(X_train_best, y_train_best)
+
+dump(best_mlp, 'trainModel.joblib')
 
 
 
