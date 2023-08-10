@@ -52,7 +52,7 @@ class MongoDBController extends Controller
                 fclose($file);
                 shell_exec("/bin/python3 /home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/handleModel.py");
 
-                $dataAfterPredictContent = file_get_contents("/home/danghh/demo/bigData/outputdata.txt","r");
+                $dataAfterPredictContent = file_get_contents("/home/danghh/demo/bigDataMongoDBandDocker/bigData/outputdata.txt","r");
                 $dataAfterPredict = str_replace("\n", "",$dataAfterPredictContent);
 
                 $this->connectCollection->insertValuesToCollection(
