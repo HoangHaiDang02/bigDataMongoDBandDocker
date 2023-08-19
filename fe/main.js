@@ -8,6 +8,7 @@ const stepThree = document.querySelector(".formbold-form-step-3");
 
 const formSubmitBtn = document.querySelector(".formbold-btn");
 const formBackBtn = document.querySelector(".formbold-back-btn");
+const syncData = document.querySelector(".sync_Data")
 
 const toan1 = document.querySelector("#toan1");
 const van1 = document.querySelector("#van1");
@@ -31,6 +32,11 @@ function validateInputScore(values) {
     return value >= 0 && value <= 10;
   });
 }
+
+syncData.addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("sync_data");
+})
 
 formSubmitBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -84,6 +90,18 @@ formSubmitBtn.addEventListener("click", function (event) {
     });
   } else if (stepMenuTwo.className == "formbold-step-menu2 active") {
     event.preventDefault();
+
+    // fetch("", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //   }),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   }
+    // })
+
+    //   .then(response => response.json())
+    //   .then(json => console.log(json));
 
     stepMenuTwo.classList.remove("active");
     stepMenuThree.classList.add("active");
