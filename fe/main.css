@@ -168,7 +168,13 @@
             align-items: center;
             justify-content: flex-end;
             gap: 25px;
-            margin-top: 25px;
+          
+        }
+        .formbold-form-btn-wrapper-form{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
         }
 
         .formbold-back-btn {
@@ -187,6 +193,19 @@
         }
 
         .formbold-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 25px;
+            border: none;
+            font-weight: 500;
+            background-color: #6A64F1;
+            color: white;
+            cursor: pointer;
+        }
+        .sync_Data{
             display: flex;
             align-items: center;
             gap: 5px;
