@@ -60,9 +60,12 @@ class MongoDBController extends Controller
                         explode(",",$dataAfterPredict)
                     )
                 );
+
+
                 return response()->json([
                     'success' => true,
-                    'descriptionHandle' => 'Created data in mongodb'
+                    'descriptionHandle' => 'Created data in mongodb',
+                    'resultPredict' => $this->readResult()
                 ]);
             } catch (\Throwable $exception) {
                 return response()->json([
@@ -154,6 +157,42 @@ class MongoDBController extends Controller
             'success' => true,
             'message' => 'Trained new modal with new Data'
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function readResult(): string
+    {
+        $result = 0;
+        $predict = '';
+        $filePath = '/home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/predict.txt';
+        $readFile = fopen($filePath,'r');
+        while(! feof($readFile)) {
+            $result = fgets(($readFile));
+        }
+
+        switch ((int)$result) {
+            case 0:
+                $predict = 'A00';
+                break;
+            case 1:
+                $predict = 'A01';
+                break;
+            case 2:
+                $predict = 'B00';
+                break;
+            case 3:
+                $predict = 'B08';
+                break;
+            case 4:
+                $predict = 'C00';
+                break;
+            default:
+                $predict = 'D00';
+        }
+
+        return (string) $predict;
     }
 }
 
