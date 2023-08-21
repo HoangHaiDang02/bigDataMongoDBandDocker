@@ -38,7 +38,7 @@ syncData.addEventListener("click", function (event) {
   console.log("sync_data");
 })
 
-formSubmitBtn.addEventListener("click", function (event) {
+formSubmitBtn.addEventListener("click", async function (event) {
   event.preventDefault();
   if (stepMenuOne.className == "formbold-step-menu1 active") {
     event.preventDefault();
@@ -52,19 +52,20 @@ formSubmitBtn.addEventListener("click", function (event) {
       Number(dia1?.value),
       Number(anh1?.value),
     ];
-    if (validateInputScore(arrValuesInputScore)) {
-      stepMenuOne.classList.remove("active");
-      stepMenuTwo.classList.add("active");
+    if (toan1?.value && ly1?.value && hoa1?.value && sinh1?.value && van1?.value && su1?.value && dia1?.value && anh1?.value) {
+      if (validateInputScore(arrValuesInputScore)) {
+        stepMenuOne.classList.remove("active");
+        stepMenuTwo.classList.add("active");
 
-      stepOne.classList.remove("active");
-      stepTwo.classList.add("active");
-      formSubmitBtn.textContent = "Submit";
-      formBackBtn.classList.add("active");
-    } else {
-      alert("Fail");
+        stepOne.classList.remove("active");
+        stepTwo.classList.add("active");
+        formSubmitBtn.textContent = "Submit";
+        formBackBtn.classList.add("active");
+      } else {
+        alert("Fail");
+      }
     }
-
-    formBackBtn.addEventListener("click", function (event) {
+    formBackBtn.addEventListener("click", async function (event) {
       event.preventDefault();
 
       const arrValuesInputScore = [
@@ -77,40 +78,46 @@ formSubmitBtn.addEventListener("click", function (event) {
         Number(dia2?.value),
         Number(anh2?.value),
       ];
+      if (toan2?.value && ly2?.value && hoa2?.value && sinh2?.value && van2?.value && su2?.value && dia2?.value && anh2?.value) {
+        if (validateInputScore(arrValuesInputScore)) {
+          stepMenuOne.classList.add("active");
+          stepMenuTwo.classList.remove("active");
 
-      if (validateInputScore(arrValuesInputScore)) {
-        stepMenuOne.classList.add("active");
-        stepMenuTwo.classList.remove("active");
-
-        stepOne.classList.add("active");
-        stepTwo.classList.remove("active");
-        formSubmitBtn.textContent = "Next";
-        formBackBtn.classList.remove("active");
+          stepOne.classList.add("active");
+          stepTwo.classList.remove("active");
+          formSubmitBtn.textContent = "Next";
+          formBackBtn.classList.remove("active");
+        }
       }
+
     });
   } else if (stepMenuTwo.className == "formbold-step-menu2 active") {
     event.preventDefault();
+    let data
+    await fetch("https://dummyjson.com/products/1", {
+      method: "GET",
+      // body: JSON.stringify({
+      // }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
 
-    // fetch("", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //   }),
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8"
-    //   }
-    // })
+      .then(response => response.json())
+      .then(json => data = json);
 
-    //   .then(response => response.json())
-    //   .then(json => console.log(json));
+    if (data) {
+      stepMenuTwo.classList.remove("active");
+      stepMenuThree.classList.add("active");
 
-    stepMenuTwo.classList.remove("active");
-    stepMenuThree.classList.add("active");
+      stepTwo.classList.remove("active");
+      stepThree.classList.add("active");
+      formSubmitBtn.textContent = "Done!";
 
-    stepTwo.classList.remove("active");
-    stepThree.classList.add("active");
-    formSubmitBtn.textContent = "Done!";
+      formBackBtn.classList.remove("active");
+    }
 
-    formBackBtn.classList.remove("active");
+
   } else if (stepMenuThree.className == "formbold-step-menu3 active") {
     document.querySelector("form").submit();
   }
