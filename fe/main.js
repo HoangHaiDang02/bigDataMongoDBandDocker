@@ -9,7 +9,7 @@ const stepThree = document.querySelector(".formbold-form-step-3");
 const formSubmitBtn = document.querySelector(".formbold-btn");
 const formBackBtn = document.querySelector(".formbold-back-btn");
 const syncData = document.querySelector(".sync_Data")
-
+const result = document.querySelector("formbold-confirm-btn")
 const toan1 = document.querySelector("#toan1");
 const van1 = document.querySelector("#van1");
 const anh1 = document.querySelector("#anh1");
@@ -36,13 +36,13 @@ function validateInputScore(values) {
 syncData.addEventListener("click", function (event) {
   event.preventDefault();
   fetch("http://localhost:8082/api/bigData/syncDataInToDataTrain",
-      {
-        method: "POST"
-      }
+    {
+      method: "POST"
+    }
   )
-      .then((response) => response.json())
-      .then(json => alert(json.message))
-      .catch((error) => error.error)
+    .then((response) => response.json())
+    .then(json => alert(json.message))
+    .catch((error) => error.error)
   console.log("sync_data");
 })
 
@@ -72,6 +72,8 @@ formSubmitBtn.addEventListener("click", async function (event) {
       } else {
         alert("Fail");
       }
+    } else {
+      alert("vui long nhap day du diem")
     }
     formBackBtn.addEventListener("click", async function (event) {
       event.preventDefault();
@@ -96,6 +98,8 @@ formSubmitBtn.addEventListener("click", async function (event) {
           formSubmitBtn.textContent = "Next";
           formBackBtn.classList.remove("active");
         }
+      } else {
+        alert("vui long nhap day du diem")
       }
 
     });
@@ -137,6 +141,7 @@ formSubmitBtn.addEventListener("click", async function (event) {
       stepThree.classList.add("active");
       formSubmitBtn.textContent = data.resultPredict;
       formBackBtn.classList.remove("active");
+      result.textContent = data.resultPredict;
     }
 
 
