@@ -35,6 +35,14 @@ function validateInputScore(values) {
 
 syncData.addEventListener("click", function (event) {
   event.preventDefault();
+  fetch("http://localhost:8082/api/bigData/syncDataInToDataTrain",
+      {
+        method: "POST"
+      }
+  )
+      .then((response) => response.json())
+      .then(json => alert(json.message))
+      .catch((error) => error.error)
   console.log("sync_data");
 })
 
@@ -94,15 +102,30 @@ formSubmitBtn.addEventListener("click", async function (event) {
   } else if (stepMenuTwo.className == "formbold-step-menu2 active") {
     event.preventDefault();
     let data
-    await fetch("https://dummyjson.com/products/1", {
-      method: "GET",
-      // body: JSON.stringify({
-      // }),
+    await fetch("http://localhost:8082/api/bigData/testInsertToMongodb", {
+      method: "POST",
+      body: {
+        'toan1': toan1,
+        'ly1': ly1,
+        'hoa1': hoa1,
+        'sinh1': sinh1,
+        'van1': van1,
+        'su1': su1,
+        'dia1': dia1,
+        'anh1': anh1,
+        'toan2': toan2,
+        'ly2': ly2,
+        'hoa2': hoa2,
+        'sinh2': sinh2,
+        'van2': van2,
+        'su2': su2,
+        'dia2': dia2,
+        'anh2': anh2
+      },
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-
       .then(response => response.json())
       .then(json => data = json);
 
@@ -112,8 +135,7 @@ formSubmitBtn.addEventListener("click", async function (event) {
 
       stepTwo.classList.remove("active");
       stepThree.classList.add("active");
-      formSubmitBtn.textContent = "Done!";
-
+      formSubmitBtn.textContent = data.resultPredict;
       formBackBtn.classList.remove("active");
     }
 
