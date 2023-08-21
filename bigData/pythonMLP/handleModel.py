@@ -22,14 +22,19 @@ for value in arrayInput:
     result = getModel.predict([value])
     arrayPredict.append(result[0])
 
+print(arrayPredict)
+# in ra ket qua du doan
+resultFile = '/home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/predict.txt'
+with open(resultFile, 'w') as file:
+    file.write(str(arrayPredict[0]))
+
 # Merge các phần tử của hai mảng
 for i in range(len(arrayInput)):
     arrayInput[i].extend([arrayPredict[i]])
     # Thêm mảng con vào mảng arrayPredict
     arrayResult.append(arrayInput[i])
 
-# In kết quả
-print(arrayResult)
+
 
 file_part_out = '/home/danghh/demo/bigDataMongoDBandDocker/bigData/outputdata.txt'
 with open(file_part_out, 'w') as file:

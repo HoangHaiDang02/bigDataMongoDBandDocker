@@ -68,7 +68,7 @@ void readCSV(const std::string& filename) {
 }
 
 int main() {
-    std::string filename = "test2.csv";
+    std::string filename = "result.csv";
     readCSV(filename);
 
     return 0;
