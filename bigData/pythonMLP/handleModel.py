@@ -1,8 +1,8 @@
 from joblib import load
 
-getModel = load('/home/danghh/demo/bigData/pythonMLP/trainModel.joblib')
+getModel = load('/home/danghh/demo/bigDataMongoDBandDocker/bigData/pythonMLP/trainModel.joblib')
 
-file_part = '/home/danghh/demo/bigData/datainrequest.txt'
+file_part = '/home/danghh/demo/bigDataMongoDBandDocker/bigData/datainrequest.txt'
 
 arrayInput = []
 arrayPredict = []
@@ -31,7 +31,7 @@ for i in range(len(arrayInput)):
 # In kết quả
 print(arrayResult)
 
-file_part_out = '/home/danghh/demo/bigData/outputdata.txt'
+file_part_out = '/home/danghh/demo/bigDataMongoDBandDocker/bigData/outputdata.txt'
 with open(file_part_out, 'w') as file:
     for value in arrayResult:
         stringOut = str(value).replace("[", "").replace("]", "").replace(" ", "")
