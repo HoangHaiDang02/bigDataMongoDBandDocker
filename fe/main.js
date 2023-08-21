@@ -9,7 +9,7 @@ const stepThree = document.querySelector(".formbold-form-step-3");
 const formSubmitBtn = document.querySelector(".formbold-btn");
 const formBackBtn = document.querySelector(".formbold-back-btn");
 const syncData = document.querySelector(".sync_Data")
-const result = document.querySelector(".formbold-confirm-btn")
+const result = document.querySelector("#result")
 const toan1 = document.querySelector("#toan1");
 const van1 = document.querySelector("#van1");
 const anh1 = document.querySelector("#anh1");
@@ -104,6 +104,7 @@ formSubmitBtn.addEventListener("click", async function (event) {
 
     });
   } else if (stepMenuTwo.className == "formbold-step-menu2 active") {
+
     event.preventDefault();
     let data
     await fetch("http://localhost:8082/api/bigData/testInsertToMongodb", {
